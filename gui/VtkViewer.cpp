@@ -29,10 +29,10 @@
 // OpenGL Loader
 // This can be replaced with another loader, e.g. glad, but
 // remember to change the corresponding initialize call below!
-#include <GL/gl3w.h>            // GL3w, initialized with gl3wInit()
+#include <../gl3w/include/GL/gl3w.h>
 
 // Include glfw3.h after our OpenGL definitions
-#include <GLFW/glfw3.h>
+#include <../glfw/include/GLFW/glfw3.h>
 
 void VtkViewer::isCurrentCallbackFn(vtkObject* caller, long unsigned int eventId, void* clientData, void* callData){
 	bool* isCurrent = static_cast<bool*>(callData);

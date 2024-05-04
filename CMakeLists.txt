@@ -10,7 +10,7 @@ set(EXEC_NAME imgui_vtk)
 # In this CMakeLists.txt file, components are all built separately and linked together
 # If you prefer to compile source files + dependencies (OpenGL loaders, imgui, VtkViewer, etc.)
 # together, please see CMakeLists-alt.txt
-add_executable(${EXEC_NAME} main.cpp)
+add_executable(${EXEC_NAME} main.cpp gui/Dockspace.h)
 
 # OpenGL
 find_package(OpenGL REQUIRED)
@@ -86,7 +86,7 @@ endif()
 message (STATUS "VTK Version: ${VTK_VERSION}")
 
 # imgui-vtk (VTK Viewer class)
-set(imgui_vtk_viewer_dir ${CMAKE_CURRENT_SOURCE_DIR})
+set(imgui_vtk_viewer_dir ${CMAKE_CURRENT_SOURCE_DIR}/gui)
 add_library(imgui_vtk_viewer STATIC ${imgui_vtk_viewer_dir}/VtkViewer.cpp)
 target_include_directories(imgui_vtk_viewer PUBLIC ${imgui_vtk_viewer_dir})
 target_link_libraries(imgui_vtk_viewer gl3w) # Since gl3w was compiled as a static library, we need to link to it

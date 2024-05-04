@@ -5,5 +5,7 @@ build/
 .DS_Store
 .vscode/
 vsbuild/
+cmake-build-*
+.idea/
 
 imgui.ini
