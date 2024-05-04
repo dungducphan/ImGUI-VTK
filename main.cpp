@@ -54,7 +54,7 @@ int main(int argc, char* argv[])
 #endif
 
   // Create window with graphics context
-  GLFWwindow* window = glfwCreateWindow(1280, 720, "Dear ImGui VTKViewer Example", NULL, NULL);
+  GLFWwindow* window = glfwCreateWindow(1280, 720, "ImGUI-VTK", NULL, NULL);
   if (window == NULL){
     return 1;
   }
@@ -71,11 +71,24 @@ int main(int argc, char* argv[])
   IMGUI_CHECKVERSION();
   ImGui::CreateContext();
   ImGuiIO& io = ImGui::GetIO(); (void)io;
-  io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;           // Enable Docking
-  io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;         // Enable Multi-Viewport / Platform Windows'
+  io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
+  io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
+  io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;         // Enable Docking
+  io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;       // Enable Multi-Viewport / Platform Windows'
+
+  // Fonts
+  io.Fonts->AddFontFromFileTTF("C:\\Windows\\Fonts\\JetBrainsMonoNerdFontMono-Regular.ttf", 18.0f);
 
   // Setup Dear ImGui style
   ImGui::StyleColorsDark();
+
+  // When viewports are enabled we tweak WindowRounding/WindowBg so platform windows can look identical to regular ones.
+  ImGuiStyle& style = ImGui::GetStyle();
+  if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable) {
+      style.WindowRounding = 5.0f;
+	  style.FrameRounding = 5.0f;
+      style.Colors[ImGuiCol_WindowBg].w = 1.0f;
+  }
 
   // Setup Platform/Renderer backends
   ImGui_ImplGlfw_InitForOpenGL(window, true);
@@ -91,7 +104,6 @@ int main(int argc, char* argv[])
 
   // Our state
   bool show_demo_window = true;
-  bool show_another_window = false;
   bool vtk_2_open = true;
   ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
 
