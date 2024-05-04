@@ -4,5 +4,6 @@ build/
 *.json
 .DS_Store
 .vscode/
+vsbuild/
 
 imgui.ini
