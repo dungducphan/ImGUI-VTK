@@ -32,7 +32,9 @@ int main(int argc, char* argv[]) {
 
     // Setup window
     glfwSetErrorCallback(glfw_error_callback);
-    if (!glfwInit()) return 1;
+    if (!glfwInit()) {
+        return 1;
+    }
 
     // Use GL 3.2 (All Platforms)
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -50,9 +52,10 @@ int main(int argc, char* argv[]) {
 #endif
 
     // Create window with graphics context
-    GLFWwindow* window = glfwCreateWindow(1280, 720, "ImGUI-VTK", nullptr, nullptr);
-    if (window == nullptr) return 1;
-
+    GLFWwindow* window = glfwCreateWindow(1280, 720, "ImGUI-VTK", NULL, NULL);
+    if (window == NULL) {
+        return 1;
+    }
     glfwMakeContextCurrent(window);
     glfwSwapInterval(1); // Enable vsync
 
