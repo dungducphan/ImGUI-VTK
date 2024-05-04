@@ -139,8 +139,7 @@ int main(int argc, char* argv[]) {
         // 5. Show a more complex VtkViewer Instance (Closable, Widgets in Window)
         ImGui::SetNextWindowSize(ImVec2(720, 480), ImGuiCond_FirstUseEver);
         if (vtk_2_open) {
-            ImGui::Begin("Vtk Viewer 2", &vtk_2_open,
-                         VtkViewer::NoScrollFlags());
+            ImGui::Begin("Vtk Viewer 2", &vtk_2_open, VtkViewer::NoScrollFlags());
 
             // Other widgets can be placed in the same window as the VTKViewer
             // However, since the VTKViewer is rendered to size ImGui::GetContentRegionAvail(),

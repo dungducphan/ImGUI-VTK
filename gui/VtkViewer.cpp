@@ -11,19 +11,15 @@
 // If you are new to dear imgui, read examples/README.txt and read the documentation at the top of imgui.cpp.
 // https://github.com/ocornut/imgui
 
-// CHANGELOG
-// (minor and older changes stripped away, please see git history for details)
-// 
-
-#if defined(_MSC_VER) && !defined(_CRT_SECURE_NO_WARNINGS)
+#if defined(_MSC_VER) && !defined(CRT_SECURE_NO_WARNINGS)
 #define _CRT_SECURE_NO_WARNINGS
 #endif
 
-#include <stdio.h>
+#include <cstdio>
 #if defined(_MSC_VER) && _MSC_VER <= 1500 // MSVC 2008 or earlier
 #include <stddef.h>     // intptr_t
 #else
-#include <stdint.h>     // intptr_t
+#include <cstdint>     // intptr_t
 #endif
 
 // OpenGL Loader
@@ -109,7 +105,7 @@ VtkViewer::~VtkViewer(){
 	glDeleteTextures(1, &tex);
 }
 
-VtkViewer& VtkViewer::operator=(const VtkViewer& vtkViewer){
+VtkViewer& VtkViewer::operator=(const VtkViewer& vtkViewer) {
 	viewportWidth = vtkViewer.viewportWidth;
 	viewportHeight = vtkViewer.viewportHeight;
 	renderWindow = vtkViewer.renderWindow;

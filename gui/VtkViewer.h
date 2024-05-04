@@ -9,9 +9,7 @@
 #include <vtkProp.h>
 #include <vtkPropCollection.h>
 #include <vtkSmartPointer.h>
-#include <vtkActor.h>
 #include <vtkCallbackCommand.h>
-#include <vtkCommand.h>
 #include <vtkGenericOpenGLRenderWindow.h>
 #include <vtkOpenGLFramebufferObject.h>
 #include <vtkGenericRenderWindowInteractor.h>
@@ -25,10 +23,10 @@
 
 class VtkViewerError : public std::runtime_error {
 public:
-	explicit VtkViewerError(const std::string& message) throw() : std::runtime_error(message) {}
-	~VtkViewerError() = default;
+	explicit VtkViewerError(const std::string& message) noexcept : std::runtime_error(message) {}
+	~VtkViewerError() override = default;
 public:
-	virtual char const* what() const throw() {
+	char const* what() const noexcept override {
 		return exception::what();
 	}
 };
@@ -57,11 +55,11 @@ private:
 	IMGUI_IMPL_API void init();
 public:
 	IMGUI_IMPL_API void render();
-	IMGUI_IMPL_API void render(const ImVec2 size);
+	IMGUI_IMPL_API void render(ImVec2 size);
 	IMGUI_IMPL_API void addActor(const vtkSmartPointer<vtkProp>& actor);
 	IMGUI_IMPL_API void addActors(const vtkSmartPointer<vtkPropCollection>& actors);
 	IMGUI_IMPL_API void removeActor(const vtkSmartPointer<vtkProp>& actor);
-	void setViewportSize(const ImVec2 newSize);
+	void setViewportSize(ImVec2 newSize);
 public:
 	static inline unsigned int NoScrollFlags(){
 		return ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse;
