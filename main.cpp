@@ -97,13 +97,9 @@ int main(int argc, char* argv[]) {
     ImGui_ImplGlfw_InitForOpenGL(window, true);
     ImGui_ImplOpenGL3_Init(glsl_version);
 
-    // Initialize VtkViewer objects
-    VtkViewer vtkViewer1;
-    vtkViewer1.addActor(actor);
-
-    VtkViewer vtkViewer2;
-    vtkViewer2.getRenderer()->SetBackground(0, 0, 0); // Black background
-    vtkViewer2.addActor(actor);
+    VtkViewer vtkViewer;
+    vtkViewer.getRenderer()->SetBackground(0, 0, 0); // Black background
+    vtkViewer.addActor(actor);
 
     // Our state
     bool show_demo_window = true;
@@ -127,48 +123,11 @@ int main(int argc, char* argv[]) {
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         gui::RenderDockspace();
-
-        // 4. Show a simple VtkViewer Instance (Always Open)
-        ImGui::SetNextWindowSize(ImVec2(360, 240), ImGuiCond_FirstUseEver);
-        ImGui::Begin("Vtk Viewer 1", nullptr, VtkViewer::NoScrollFlags());
-        ImGui::Text("Render %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
-        vtkViewer1.render();
-        // default render size = ImGui::GetContentRegionAvail()
-        ImGui::End();
-
-        // 5. Show a more complex VtkViewer Instance (Closable, Widgets in Window)
-        ImGui::SetNextWindowSize(ImVec2(720, 480), ImGuiCond_FirstUseEver);
-        if (vtk_2_open) {
-            ImGui::Begin("Vtk Viewer 2", &vtk_2_open, VtkViewer::NoScrollFlags());
-
-            // Other widgets can be placed in the same window as the VTKViewer
-            // However, since the VTKViewer is rendered to size ImGui::GetContentRegionAvail(),
-            // it is best to put all widgets first (i.e., render the VTKViewer last).
-            // If you want the VTKViewer to be at the top of a window, you can manually calculate
-            // and define its size, accounting for the space taken up by other widgets
-
-            auto renderer = vtkViewer2.getRenderer();
-            if (ImGui::Button("VTK Background: Black")) {
-                renderer->SetBackground(0, 0, 0);
-            }
-            ImGui::SameLine();
-            if (ImGui::Button("VTK Background: Red")) {
-                renderer->SetBackground(1, 0, 0);
-            }
-            ImGui::SameLine();
-            if (ImGui::Button("VTK Background: Green")) {
-                renderer->SetBackground(0, 1, 0);
-            }
-            ImGui::SameLine();
-            if (ImGui::Button("VTK Background: Blue")) {
-                renderer->SetBackground(0, 0, 1);
-            }
-            static float vtk2BkgAlpha = 0.2f;
-            ImGui::SliderFloat("Background Alpha", &vtk2BkgAlpha, 0.0f, 1.0f);
-            renderer->SetBackgroundAlpha(vtk2BkgAlpha);
-
-            vtkViewer2.render();
-
+        
+        if (ImGui::Begin("Vtk Viewer 2", &vtk_2_open, VtkViewer::NoScrollFlags())) {
+            ImGui::Text("Render %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+            auto renderer = vtkViewer.getRenderer();
+            vtkViewer.render();
             ImGui::End();
         }
 
